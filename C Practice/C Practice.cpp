@@ -110,43 +110,29 @@ int BinarySearch(int *data,int len, int searchVal)
 	return -1;
 }
 
-//#pragma pack(push,1)
+#pragma pack (push,1)
 struct BitField {
-	unsigned char A : 4;
+	unsigned char INT0 : 1;
+	unsigned char INT1 : 1;
+	unsigned char : 1;
+	unsigned char LSTVAL: 4;
 	
-	unsigned short C: 5;
-};
-//#pragma pack(pop)
+	unsigned short SPARE : 16;
+}Bits;
+#pragma pack (pop,1)
 
 int main(void)
 {
 	int arr[10] = { 10,8,9,2,4,3,1,5,6,7 };
 	
-//	SelectSort(arr, sizeof(arr) / sizeof(int));
-//	BubbleSort(arr, sizeof(arr) / sizeof(int));
-//	InsertSort(arr, sizeof(arr) / sizeof(int));
-	QuickSort(arr, 0, 9);
-
-	for(int i=0; i<10; i++)
-		printf("%d ", arr[i]);
+	Bits.INT0 = 0x01;
+	Bits.INT1 = 0x01;
+	Bits.LSTVAL = 0x0f;
 	
-	printf("\n\n");
-
-	int val = BinarySearch(arr,sizeof(arr)/sizeof(int),5);
-
-	printf("val : %d\n", val);
+	printf("0x%02x\n", Bits.INT0);
+	printf("0x%02x\n", Bits.INT1);
+	printf("0x%05x\n", Bits.LSTVAL);
 	
-	printf("size : %d\n", sizeof(struct BitField));
-	
-	struct BitField bits = { 0xff, 0x00 };
-	//bits.A = 0xff;
-	//bits.C = 0x03;
-
-	printf("0x%16x\n", bits.A);
-	
-	printf("0x%x\n", bits.C);
-
-	unsigned short val2 = 20;
-	printf("size -- : %d\n", sizeof(signed long));
+	printf("size : %d\n", sizeof(Bits));
 	return 0;
 }
